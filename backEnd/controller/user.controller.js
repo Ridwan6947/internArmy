@@ -105,3 +105,26 @@ export const loginUser = async (req, res) => {
         )
     )
 }; 
+
+export const logoutUser = async(req , res) =>{
+    await Register.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset:{
+                refreshToken:1,
+            },
+        },
+        {
+            new:true
+        }
+    )
+    const options = {
+        httpOnly: true,     // cookies can only be modified when we use httponly and secure 
+        secure: true,
+    }
+    return res.status(200).clearCookie("accessToken" , options).clearCookie("refreshToken" , options).json(
+        new ApiResponse(
+            200 , {} , "Logout Successful"
+        )
+    );
+}

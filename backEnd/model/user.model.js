@@ -24,17 +24,21 @@ const registerSchema = new mongoose.Schema({
     refreshToken:{
         type:String,
     },
-});
+}, {timestamps:true});
 
-registerSchema.pre("save" , async function(next){
-    if(!this.isModified("password")){
-        next();
-    }
-    this.password = await bcrypt.hash(this.password , 3);
-})
+// registerSchema.pre("save" , async function(next){
+//     if(!this.isModified("password")){
+//         next();
+//     }
+//     this.password = await bcrypt.hash(this.password , 3);
+// })
 
 registerSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password , this.password);
+    if(password === this.password){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 registerSchema.methods.generateAccessToken = function(){
@@ -61,5 +65,6 @@ registerSchema.methods.generateRefreshToken = function(){
             expiresIn:process.env.REFRESH_TOKEN_EXPIRE
         }
     )
+
 }
 export const Register = mongoose.model("Register" , registerSchema);

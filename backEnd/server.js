@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { dbConnection } from '../backEnd/connection/connectionMongo.js';
 import loginRoute from '../backEnd/routes/loginRoute.js';
+import  messageRoute  from '../backEnd/routes/messageRoute.js'
 import cookieParser from 'cookie-parser';
 
 const app = express();
@@ -13,3 +14,4 @@ dbConnection()
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1" , loginRoute);
+app.use("/api/v1/messages" , messageRoute);

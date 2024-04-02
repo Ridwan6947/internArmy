@@ -36,12 +36,12 @@ export const registerUser = async(req , res , next) =>{
         if(userExist){
             throw new errorHandler("User already exist" , 400);
         }
-        const hashedPassword = await bcrypt.hash(password , 3);
+        // const hashedPassword = await bcrypt.hash(password , 3);
 
         const newUser = await Register.create({
             fullname,
             email,
-            password: hashedPassword,
+            password,
             username
         });
         res.status(200).json({

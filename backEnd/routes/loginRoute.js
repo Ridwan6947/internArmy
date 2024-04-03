@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser , loginUser , logoutUser } from '../controller/user.controller.js';
+import { registerUser , loginUser , logoutUser } from '../controller/auth.controller.js';
 import { verifyJWT } from '../middleware/auth.middleware.js';
 
 

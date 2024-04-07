@@ -5,12 +5,17 @@ import loginRoute from '../backEnd/routes/loginRoute.js';
 import  messageRoute  from '../backEnd/routes/messageRoute.js';
 import userRoute from '../backEnd/routes/userRoute.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 
 const app = express();
 dotenv.config({path: "./config/config.env"})
 app.listen(process.env.PORT , () =>{
     console.log(`server is running on port ${process.env.PORT}`);
 })
+app.use(cors({
+    origin:'http://localhost:5173',
+    credentials:true
+}));
 dbConnection()
 app.use(express.json());
 app.use(cookieParser());
